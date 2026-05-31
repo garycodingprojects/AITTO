@@ -1,6 +1,8 @@
 # Build outputs
 target/
 *.class
+__pycache__/
+*.pyc
 
 # IDE
 .idea/
@@ -9,6 +11,9 @@ target/
 # OS
 Thumbs.db
 .DS_Store
+
+# Temporary Excel lock files
+~$*.xlsx
 
 # Logs and local run artifacts
 *.log
