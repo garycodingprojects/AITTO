@@ -1,0 +1,17 @@
+# Build outputs
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs and local run artifacts
+*.log
+
+# Local reference code (Mahlous demo); keep on disk only, not on GitHub
+references/timetable_demo/
