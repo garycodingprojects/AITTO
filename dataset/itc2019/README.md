@@ -23,11 +23,14 @@ instance. The converter therefore makes these explicit assumptions:
 
 - Each row in `students.xlsx` is a cohort, not an individual student.
 - Each cohort is expanded into 30 synthetic students by default.
+- Cohorts assigned to `None` are omitted from the XML entirely to reduce solver
+  computation.
 - Each module in `modules_set_A.xlsx` becomes one ITC course.
 - Each module/course has one configuration and one subpart named `Main`.
 - Each module/cohort pair becomes one class section.
 - Possible rooms are filtered by the module's `Room type`.
-- Possible times are generated from regular weekday teaching slots.
+- Possible times are generated from regular weekday teaching slots using
+  aiTTO's 30-minute slot model to reduce solver search difficulty.
 - Calendar holidays, revision weeks, weekends, and summer break are emitted as
   room unavailability periods.
 - Teacher load data is not encoded yet because ITC 2019 has no direct teacher
@@ -41,8 +44,46 @@ From PowerShell:
 python .\scripts\convert_dataset_to_itc2019.py
 ```
 
+To use the Tkinter GUI:
+
+```powershell
+python .\scripts\convert_dataset_to_itc2019.py --gui
+```
+
+The GUI lets the user:
+
+- Select the classroom, student/cohort, academic calendar, and output XML files.
+- Add one or more `modules_set_*.xlsx` workbooks.
+- Assign a different module set to each cohort before generating the XML. The
+  default assignment is `None` (omit that cohort from the XML).
+- Adjust the synthetic student count per cohort.
+- Adjust generated teaching timeslots. The defaults are `08:30` to `17:30`,
+  with module durations and generated start times aligned to a `30` minute
+  increment. The XML uses 30-minute slots, so a full day has 48 slots.
+- Open a second viewer window for `aitto_dataset.xml` with summary, structure,
+  and raw XML tabs.
+
 To change the synthetic cohort size:
 
 ```powershell
 python .\scripts\convert_dataset_to_itc2019.py --cohort-size 25
+```
+
+To change the generated teaching window or duration increment from PowerShell:
+
+```powershell
+python .\scripts\convert_dataset_to_itc2019.py `
+  --teaching-start 08:30 `
+  --teaching-end 17:30 `
+  --duration-increment-minutes 30
+```
+
+To assign module sets from PowerShell without opening the GUI:
+
+```powershell
+python .\scripts\convert_dataset_to_itc2019.py `
+  --module-file .\dataset\modules_set_A.xlsx `
+  --module-file .\dataset\modules_set_B.xlsx `
+  --cohort-module FS123456-1A=modules_set_A `
+  --cohort-module FS123457-1B=modules_set_B
 ```
