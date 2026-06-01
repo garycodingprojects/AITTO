@@ -1,0 +1,14 @@
+https://pygad.readthedocs.io/en/latest/
+
+https://github.com/akazuko/timetable_scheduler
+
+https://github.com/LaravelDaily/Laravel-School-Timetable-Calendar
+
+https://github.com/houssam966/geneticTimetabling
+https://peerj.com/articles/cs-1200/
+
+https://www.unitime.org/itc2007/
+https://github.com/Docheinstein/itc2007-cct
+https://github.com/ScholORs/itc-2019/tree/main
+
+https://github.com/LaravelDaily/Laravel-School-Timetable-Calendar
